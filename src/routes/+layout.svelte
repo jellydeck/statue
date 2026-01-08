@@ -32,6 +32,10 @@
 	navbarItems={data.globalDirectories}
 	showSearch={data.searchConfig?.enabled ?? false}
 	searchPlaceholder={data.searchConfig?.placeholder ?? 'Search...'}
+	siteTitle={navbarConfig?.siteTitle ?? null}
+	logo={navbarConfig?.logo ?? null}
+	hiddenFromNav={navbarConfig?.hiddenFromNav ?? []}
+	{...(navbarConfig?.defaultNavItems && { defaultNavItems: navbarConfig.defaultNavItems })}
 />
 
 <main>
