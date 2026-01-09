@@ -1,12 +1,14 @@
 <script>
 	import { NavigationBar, Footer } from 'statue-ssg';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { onNavigate } from '$app/navigation';
 	import '$lib/index.css';
 
 	let { data, children } = $props();
 
-	let currentPath = $derived($page.url.pathname);
+	let searchConfig = $derived(data.searchConfig);
+	let navbarConfig = $derived(data.navbarConfig);
+	let currentPath = $derived(page.url.pathname);
 
 	// Enable View Transitions API only for blog pages
 	onNavigate((navigation) => {
@@ -30,8 +32,12 @@
 
 <NavigationBar
 	navbarItems={data.globalDirectories}
-	showSearch={data.searchConfig?.enabled ?? false}
-	searchPlaceholder={data.searchConfig?.placeholder ?? 'Search...'}
+	showSearch={searchConfig?.enabled ?? false}
+	searchPlaceholder={searchConfig?.placeholder ?? 'Search...'}
+	siteTitle={navbarConfig?.siteTitle ?? null}
+	logo={navbarConfig?.logo ?? null}
+	hiddenFromNav={navbarConfig?.hiddenFromNav ?? []}
+	{...navbarConfig?.defaultNavItems && { defaultNavItems: navbarConfig.defaultNavItems }}
 />
 
 <main>
